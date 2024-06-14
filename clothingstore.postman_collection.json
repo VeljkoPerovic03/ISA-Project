@@ -1,0 +1,829 @@
+{
+	"info": {
+		"_postman_id": "5bffceee-f0e7-4247-b7e7-3ded06e3f8ba",
+		"name": "clothingstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26247282"
+	},
+	"item": [
+		{
+			"name": "PostProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Example Product\",\r\n  \"type\": \"Sports\",\r\n  \"size\": \"M\",\r\n  \"manufacturer\": \"Example Brand\",\r\n  \"productionDate\": \"2023-01-02\",\r\n  \"price\": 19.99,\r\n  \"status\": \"Available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/public/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"products"
+					]
+				},
+				"description": "### POST /public/products\n\nThis endpoint is used to create a new product in the public domain.\n\n#### Request Body\n\n- `name` (string, required): The name of the product.\n    \n- `type` (string, required): The type of the product.\n    \n- `size` (string, required): The size of the product.\n    \n- `manufacturer` (string, required): The manufacturer of the product.\n    \n- `productionDate` (string, required): The production date of the product.\n    \n- `price` (number, required): The price of the product.\n    \n- `status` (string, required): The status of the product.\n    \n\n#### Response\n\nThe response will be a JSON object with the following properties:\n\n- `name` (string): The name of the product.\n    \n- `type` (string): The type of the product.\n    \n- `size` (string): The size of the product.\n    \n- `manufacturer` (string): The manufacturer of the product.\n    \n- `productionDate` (string): The production date of the product.\n    \n- `price` (number): The price of the product.\n    \n- `status` (string): The status of the product.\n    \n- `id` (number): The unique identifier of the created product.\n    \n\n#### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": { \"type\": \"string\" },\n    \"type\": { \"type\": \"string\" },\n    \"size\": { \"type\": \"string\" },\n    \"manufacturer\": { \"type\": \"string\" },\n    \"productionDate\": { \"type\": \"string\" },\n    \"price\": { \"type\": \"number\" },\n    \"status\": { \"type\": \"string\" },\n    \"id\": { \"type\": \"number\" }\n  }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllProducts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.to.have.status(200));\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Each product has non-empty name, price, and description\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(product.name).to.exist.and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+							"        pm.expect(product.price).to.exist.and.to.be.a('number', \"Price should be a number\");\r",
+							"        pm.expect(product.description).to.exist.and.to.have.lengthOf.at.least(1, \"Description should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "### Retrieve Products\n\nThis endpoint sends an HTTP GET request to retrieve a list of products.\n\n#### Request\n\nThe request does not require a request body. It only includes the URL endpoint:\n\n- Method: GET\n    \n- URL: `http://localhost:8080/products`\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    // Add properties based on the actual response schema\n  }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "GetByIdProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1"
+					]
+				},
+				"description": "### GET /public/products/3\n\nThis endpoint retrieves product details based on the provided product ID.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL Parameters\n    - **productID** (integer, required): The ID of the product to retrieve.\n        \n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"size\": \"string\",\n    \"manufacturer\": \"string\",\n    \"productionDate\": \"string\",\n    \"price\": \"number\",\n    \"status\": \"string\",\n    \"id\": \"integer\"\n}\n\n ```\n\n- **name** (string): The name of the product.\n    \n- **type** (string): The type of the product.\n    \n- **size** (string): The size of the product.\n    \n- **manufacturer** (string): The manufacturer of the product.\n    \n- **productionDate** (string): The production date of the product.\n    \n- **price** (number): The price of the product.\n    \n- **status** (string): The status of the product.\n    \n- **id** (integer): The unique identifier of the product."
+			},
+			"response": []
+		},
+		{
+			"name": "EditProduct",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Example Product\",\r\n  \"type\": \"Sports\",\r\n  \"size\": \"M\",\r\n  \"manufacturer\": \"Example Brand\",\r\n  \"productionDate\": \"2023-01-01\",\r\n  \"price\": 19.99,\r\n  \"status\": \"NotAvailable\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1"
+					]
+				},
+				"description": "\n# Update Product Details\n\nThis API endpoint allows the user to update the details of a specific product by making an HTTP PUT request to the specified URL.\n\n## Request Body\n- `name` (string): The name of the product.\n- `type` (string): The type or category of the product.\n- `size` (string): The size or dimensions of the product.\n- `manufacturer` (string): The manufacturer of the product.\n- `productionDate` (string): The production date of the product.\n- `price` (number): The price of the product.\n- `status` (string): The status of the product.\n\n## Response\nThe response will be in JSON format with the following schema:\n```json\n{\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"size\": \"string\",\n    \"manufacturer\": \"string\",\n    \"productionDate\": \"string\",\n    \"price\": \"number\",\n    \"status\": \"string\",\n    \"id\": \"number\"\n}\n```\n\nThe response will include the updated details of the product, along with the unique identifier `id` of the product.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProduct",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1"
+					]
+				},
+				"description": "### HTTP DELETE /public/products/3\n\nThis endpoint is used to delete a specific product with the ID of 3 from the public products.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n- URL Parameters\n    - ID: 3 (integer) - The ID of the product to be deleted.\n        \n\n#### Response\n\nThe response for this request is in the form of a JSON schema.\n\n- Status: 200\n    \n- Content-Type: text/xml\n    \n\nThe response body for this request is null."
+			},
+			"response": []
+		},
+		{
+			"name": "PostUser",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "velja123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Stefan Stajic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fullName\": \"Stefan Stajic\",\r\n  \"email\": \"stefanstajic@gmail.com\",\r\n  \"phone\": \"060101010\",\r\n  \"address\": \"BG\",\r\n  \"password\": \"stefan123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByIdUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditUser",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fullName\": \"Stefan Stajic\",\r\n  \"email\": \"stefanstajic@gmail.com\",\r\n  \"phone\": \"060101010\",\r\n  \"address\": \"SMEDEREVO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 2,\r\n  \"productId\": 2,\r\n  \"orderDate\": \"2024-06-09\",\r\n  \"status\": \"New3\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByIdOrder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/orders/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditOrder",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 3,\r\n  \"productId\": 2,\r\n  \"orderDate\": \"2024-06-09T13:00:00\",\r\n  \"status\": \"Completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/orders/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOrder",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/orders/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostReview",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 2,\r\n  \"productId\": 2,\r\n  \"rating\": 5,\r\n  \"comment\": \"Great product!\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllReviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByIdReview",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reviews/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reviews",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditReview",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 2,\r\n  \"productId\": 2,\r\n  \"rating\": 10,\r\n  \"comment\": \"Great product!\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/reviews/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reviews",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteReview",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reviews/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reviews",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByNameProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search/name?name=Example Product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search",
+						"name"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Example Product"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByTypeProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search/type?type=Sports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search",
+						"type"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Sports"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBySizeProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search/size?size=M",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search",
+						"size"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "M"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByManufacturerProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search/manufacturer?manufacturer=Example Brand",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search",
+						"manufacturer"
+					],
+					"query": [
+						{
+							"key": "manufacturer",
+							"value": "Example Brand"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByProductionDateProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search/productionDate?date=2022-12-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search",
+						"productionDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2022-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByPriceRangeProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search/priceRange?minPrice=10.0&maxPrice=100.0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search",
+						"priceRange"
+					],
+					"query": [
+						{
+							"key": "minPrice",
+							"value": "10.0"
+						},
+						{
+							"key": "maxPrice",
+							"value": "100.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByStatusProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search/status?status=Available",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Available"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginTest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@example2.com\",\r\n    \"password\": \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/public/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"users",
+						"login"
+					]
+				},
+				"description": "\n### /public/users/login\n\nThis endpoint is a POST request used for user login.\n\n#### Request Body\n- email (text, required): The email address of the user.\n- password (text, required): The password of the user.\n\n#### Response\nThe response is in JSON format with the following schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"token\": {\n      \"type\": \"string\"\n    }\n  }\n}\n```\nThe response contains a token as a string.\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  [\"fullName\", \"email\", \"phone\", \"address\", \"password\", \"roles\", \"id\"].forEach(function(field) {\r",
+							"    pm.expect(responseData).to.have.property(field);\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.email).to.match(/\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Phone is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.phone).to.match(/^\\d{10}$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@example4.com\",\r\n    \"fullName\": \"John Doe\",\r\n    \"phone\": \"1234567890\",\r\n    \"address\": \"123 Main St\",\r\n    \"password\": \"password123\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/public/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"users",
+						"register"
+					]
+				},
+				"description": "### Register User\n\nThis endpoint allows the client to register a new user.\n\n#### Request Body\n\n- `email` (string, required): The email address of the user.\n    \n- `fullName` (string, required): The full name of the user.\n    \n- `phone` (string, required): The phone number of the user.\n    \n- `address` (string, required): The address of the user.\n    \n- `password` (string, required): The password for the user account.\n    \n\n#### Response Body (JSON Schema)\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"fullName\": {\n            \"type\": \"string\"\n        },\n        \"email\": {\n            \"type\": \"string\"\n        },\n        \"phone\": {\n            \"type\": \"string\"\n        },\n        \"address\": {\n            \"type\": \"string\"\n        },\n        \"password\": {\n            \"type\": \"string\"\n        },\n        \"roles\": {\n            \"type\": \"null\"\n        },\n        \"id\": {\n            \"type\": \"integer\"\n        }\n    }\n}\n\n ```"
+			},
+			"response": []
+		}
+	]
+}
