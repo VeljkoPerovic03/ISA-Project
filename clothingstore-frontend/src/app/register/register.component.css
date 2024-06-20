@@ -1,12 +1,13 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f7f8fa;
-  }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; 
+}
+
+body, p {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+}
+
   
   #container {
     display: flex;

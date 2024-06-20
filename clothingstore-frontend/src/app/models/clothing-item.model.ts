@@ -1,10 +1,10 @@
-export interface Product {
-  id?: number;
+export interface ClothingItem {
+  id?: number; 
   name: string;
   type: string;
   size: string;
   manufacturer: string;
-  productionDate: string; 
+  productionDate: Date;  
   price: number;
   status: string;
 }

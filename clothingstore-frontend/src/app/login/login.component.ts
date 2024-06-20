@@ -19,7 +19,7 @@ export class LoginComponent {
   onSubmit() {
     this.authService.login({ email: this.email, password: this.password }).subscribe(
       response => {
-        this.authService.handleLoginResponse(response);
+        this.authService.login(response);
       },
       error => {
         console.error('Login failed', error);

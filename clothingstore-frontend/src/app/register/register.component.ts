@@ -31,7 +31,7 @@ export class RegisterComponent {
       () => {
         this.authService.login({ email: this.email, password: this.password }).subscribe(
           response => {
-            this.authService.handleLoginResponse(response);
+            this.authService.register(response);
           },
           error => {
             console.error('Login failed after registration', error);

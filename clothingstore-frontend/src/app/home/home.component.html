@@ -1,6 +1,10 @@
+<!-- home.component.html -->
 <div class="home-container">
-  <h2>Welcome to the Home Page</h2>
-  <p *ngIf="isAdmin()">You are logged in as an Administrator</p>
-  <p *ngIf="!isAdmin()">You are logged in as a User</p>
-  <button (click)="authService.logout()">Logout</button>
+  <main class="main-content">
+    <h1>
+      <span *ngFor="let char of textArray" [ngStyle]="getRainbowStyle(char)">
+        {{ char }}
+      </span>
+    </h1>
+  </main> 
 </div>

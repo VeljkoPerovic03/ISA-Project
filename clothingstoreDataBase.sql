@@ -33,12 +33,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `fk_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table clothingstore.orders: ~4 rows (approximately)
-INSERT INTO `orders` (`order_id`, `product_id`, `user_id`, `order_date`, `status`) VALUES
-	(3, 2, 3, '2024-06-09', 'Completed'),
-	(4, 2, 3, '2024-06-09', 'New'),
-	(5, 2, 2, '2025-06-09', 'New2'),
-	(6, 2, 2, '2023-06-09', 'New3');
+-- Dumping data for table clothingstore.orders: ~0 rows (approximately)
 
 -- Dumping structure for table clothingstore.products
 CREATE TABLE IF NOT EXISTS `products` (
@@ -51,28 +46,20 @@ CREATE TABLE IF NOT EXISTS `products` (
   `price` double NOT NULL,
   `status` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table clothingstore.products: ~15 rows (approximately)
+-- Dumping data for table clothingstore.products: ~10 rows (approximately)
 INSERT INTO `products` (`product_id`, `name`, `type`, `size`, `manufacturer`, `production_date`, `price`, `status`) VALUES
-	(2, 'Example Product', 'Sports', 'M', 'Example Brand', '2024-06-09', 19.99, 'Available'),
-	(4, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available'),
-	(5, 'Example Product', 'Sports', 'M', 'Example Brand', '2022-12-31', 19.99, 'Available'),
-	(6, 'Example Product', 'Sports', 'M', 'Example Brand', '2022-12-31', 19.99, 'Available'),
-	(7, 'Example Product', 'Sports', 'M', 'Example Brand', '2022-12-31', 19.99, 'Available'),
-	(8, 'Example Product', 'Sports', 'M', 'Example Brand', '2024-07-01', 19.99, 'Available'),
-	(9, 'Example Product', 'Sports', 'M', 'Example Brand', '2024-07-02', 19.99, 'Available'),
-	(10, 'Example Product', 'Sports', 'M', 'Example Brand', '2024-06-02', 19.99, 'Available'),
-	(11, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-06-02', 19.99, 'Available'),
-	(12, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available'),
-	(13, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available'),
-	(14, 'Example Product', 'Sports', 'M', 'Example Brand', '2022-12-31', 19.99, 'Available'),
-	(15, 'Example Product', 'Sports', 'M', 'Example Brand', '2022-12-31', 19.99, 'Available'),
-	(16, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available'),
-	(17, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available'),
-	(18, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available'),
-	(19, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available'),
-	(20, 'Example Product', 'Sports', 'M', 'Example Brand', '2023-01-01', 19.99, 'Available');
+	(27, 'Majica', 'Letnja', 'M', 'Nike', '2024-06-19', 15, 'dostupna'),
+	(28, 'Sorc', 'Letnji', 'L', 'Puma', '2024-06-18', 10, 'dostupan'),
+	(29, 'Duks', 'Zimski', 'XL', 'Nike', '2024-06-17', 30, 'dostupan'),
+	(30, 'Carape', 'Zimske', 'S', 'Puma', '2024-06-21', 5, 'nije dostupno'),
+	(31, 'Patike', 'Letnje', '45', 'Adidas', '2024-06-19', 120, 'dostupno'),
+	(32, 'Donji ves', 'duge', 'XXL', 'Calvin Klein', '2024-06-20', 20, 'dostupno'),
+	(33, 'Dukserica', 'letnja', 'L', 'Hugo Boss', '2024-06-20', 20, 'dostupno'),
+	(34, 'Kacket', 'Letnji', 'L', 'Nike', '2024-06-19', 30, 'dostpuno'),
+	(35, 'Nakit', 'all', 'M', 'dior', '2024-06-21', 100, 'dostupno'),
+	(36, 'Sorc', 'sport', 'M', 'Nike', '2024-06-20', 40, 'dostupno');
 
 -- Dumping structure for table clothingstore.reviews
 CREATE TABLE IF NOT EXISTS `reviews` (
@@ -113,13 +100,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `address` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table clothingstore.users: ~15 rows (approximately)
+-- Dumping data for table clothingstore.users: ~18 rows (approximately)
 INSERT INTO `users` (`user_id`, `full_name`, `email`, `phone`, `address`, `password`) VALUES
 	(2, 'Stefan Stajic', 'stefanstajic@gmail.com', '060101010', 'BG', ''),
 	(3, 'Stefan Stajic', 'stefanstajic@gmail.com', '060101010', 'BG', ''),
-	(4, 'Stefan Stajic', 'stefanstajic@gmail.com', '060101010', 'BG', 'velja123'),
 	(5, 'Stefan Stajic', 'stefanstajic@gmail.com', '060101010', 'BG', '$2a$10$AfW0WJU5rscbpHwue490LOpIMB2kaVezO2aYz8D.1nEU7xHm1Qyfu'),
 	(6, 'John Doe', 'test@example.com', '1234567890', '123 Main St', '$2a$10$R03PeHTO9LwxK4Fnzv74qOVORVW13fPglOCa7ewD18Y.c1B6ppCgm'),
 	(7, 'Veljko Perovic', 'veljkoperovic0@gmail.com', '0603661172', 'Borska B.B', '$2a$10$95Ct7ZQxBNzdy4mnyOYhte6ozuO1dtvrgc2IGES8f7IrijCATlOqa'),
@@ -131,7 +117,11 @@ INSERT INTO `users` (`user_id`, `full_name`, `email`, `phone`, `address`, `passw
 	(13, 'Veljko Perovic', 'veljkoperovic4@gmail.com', '0603661172', 'Borska B.B', '$2a$10$OZG8.qk/qOWoDIcwVkv7de7KNDE49zpugmhMypHK.EhLalTMKt0AO'),
 	(14, 'John Doe', 'test@example4.com', '1234567890', '123 Main St', '$2a$10$6wbsJGOR2Mk2oe1D8tYejeB.HwWP/iTbAtGd/v35UY2N0a.Xxny9G'),
 	(15, 'John Doe', 'test@example5.com', '1234567890', '123 Main St', '$2a$10$ZCi1cW9EvESAoqFqtKNobeb7JJxvyb.lqgqt9An/dbju9qz/bJtWm'),
-	(16, 'John Doe', 'test@example6.com', '1234567890', '123 Main St', '$2a$10$p96rt1hwTAxVMWZlgYWUjuXSBu6I2ORc8brxLgjba3NivlflVbFMq');
+	(16, 'John Doe', 'test@example6.com', '1234567890', '123 Main St', '$2a$10$p96rt1hwTAxVMWZlgYWUjuXSBu6I2ORc8brxLgjba3NivlflVbFMq'),
+	(17, 'Veljko Perovic', 'veljkoperovic5@gmail.com', '0603661172', 'Borska B.B', '$2a$10$qzkb.CXL91k2amrb0KXK4uF2zl2lrBL1O2OgWD8h8mae63eo8fNMq'),
+	(18, 'Veljko Perovic', 'veljkoperovic7@gmail.com', '0603661172', 'Borska B.B', '$2a$10$IFCyAR76roFQ6fDjyA36k.4YUqWweLBXi/LjW5UtEuSIncuvWTF7G'),
+	(19, 'Stefan Stajic', 'stefanstajic@gmail.com', '060101010', 'BG', '$2a$10$ZIBuYFoti8w5S5XX0/0EGe29FHgNwzJDt6/GNIrdJMm44LTgiD.j2'),
+	(20, 'Veljko Perovic', 'veljkoperovic9@gmail.com', '0603661172', 'Borska B.B', '$2a$10$sZT0JPh5IUQ/gG66MRvSTeC8QDeD.BBnJJbvV3FqdqxP6zD4SuLke');
 
 -- Dumping structure for table clothingstore.user_roles
 CREATE TABLE IF NOT EXISTS `user_roles` (
@@ -143,11 +133,10 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   CONSTRAINT `fk_user_roles_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table clothingstore.user_roles: ~5 rows (approximately)
+-- Dumping data for table clothingstore.user_roles: ~4 rows (approximately)
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 	(2, 1),
 	(3, 2),
-	(4, 2),
 	(13, 2),
 	(16, 2);
 
