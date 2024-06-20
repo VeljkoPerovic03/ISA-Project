@@ -18,16 +18,16 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<ProductModel> findProductById(Integer id) {
-        return productRepository.findById(id);
+    public Optional<ProductModel> findProductById(Integer product_id) {
+        return productRepository.findById(product_id);
     }
 
     public ProductModel saveProduct(ProductModel product) {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(Integer id) {
-        productRepository.deleteById(id);
+    public void deleteProduct(Integer product_id) {
+        productRepository.deleteById(product_id);
     }
 
     public List<ProductModel> findProductsByType(String type) {

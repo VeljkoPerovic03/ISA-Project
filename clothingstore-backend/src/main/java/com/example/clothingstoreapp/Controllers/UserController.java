@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.List;
 
 @RestController
-@RequestMapping("/public/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -30,8 +30,8 @@ public class UserController {
     public List<UserModel> getAllUsers() {
         return userService.findAllUsers();
     }
-
-    @GetMapping("/{id}")
+ 
+    @GetMapping("/{user_id}")
     public ResponseEntity<UserModel> getUserById(@PathVariable Integer user_id) {
         return userService.findUserById(user_id)
                 .map(ResponseEntity::ok)
@@ -72,7 +72,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/{user_id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable Integer user_id, @RequestBody UserModel updatedUser) {
         return userService.findUserById(user_id)
                 .map(user -> {
@@ -85,7 +85,7 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{user_id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer user_id) {
         return userService.findUserById(user_id)
                 .map(user -> {
